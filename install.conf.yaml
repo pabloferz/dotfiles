@@ -1,0 +1,26 @@
+- clean: ['~']
+
+- shell:
+    - [git submodule update --init --remote, Installing/updating submodules]
+    - [mv -n ~/.bashrc ~/.bashrc.old]
+    - [rm -f ~/.bashrc]
+
+- link:
+    ~/.bash_it: bash_it/
+    ~/.vim: vim/
+
+- link:
+    ~/.bash_it/aliases/custom.aliases.bash: bash/aliases/custom.aliases.bash
+    ~/.bash_it/completion/custom.completion.bash: bash/completion/custom.completion.bash
+    ~/.bash_it/themes/pabloferz: bash/themes/pabloferz/
+    ~/.vim/autoload/plug.vim: vim/autoload/vim-plug/plug.vim
+    ~/.bashrc: bashrc
+    ~/.vimrc: vimrc
+
+- shell:
+    # Setting up other configurations (bash-it, vim, etc.)
+    -
+      command: ./setup
+      stdin: true
+      stdout: true
+      stderr: true

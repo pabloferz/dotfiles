@@ -1,0 +1,16 @@
+"" This configuration uses vim-pulg to manage plugins
+call plug#begin('~/.vim/bundle/')
+
+Plug 'bling/vim-airline'
+Plug 'JuliaLang/julia-vim'
+Plug 'ajh17/VimCompletesMe'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'JuliaEditorSupport/julia-vim'
+
+"" Colorschemes
+Plug 'morhetz/gruvbox'
+Plug 'altercation/vim-colors-solarized'
+
+call plug#end()

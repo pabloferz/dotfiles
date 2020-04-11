@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Install some programs
+while true
+do
+    # Prompt user, and read command line argument
+    read -p "Do you want to install some essential packages [y/n]? " answer
+    case $answer in
+        [yY]* ) sudo apt -y install build-essential cmake gfortran m4\
+                pkg-config vim-gnome gimp inkscape unrar
+                break;;
+        [nN]* ) break;;
+    esac
+done
+
+# Path to the bash it configuration
+export BASH_IT="$HOME/.bash_it"
+
+# Load Bash It
+source $BASH_IT/bash_it.sh
+
+# Enable bash-it completions
+bash-it enable completion bash-it
+
+# Enable bash-it plugins
+bash-it enable plugin extract
+bash-it enable plugin history
+bash-it enable plugin tmux
+
+# Installing/updating vim plugins
+vim -Nu vimrc.plugins +PlugInstall +qall

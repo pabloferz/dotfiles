@@ -1,0 +1,18 @@
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot.git
+    branch = master
+    ignore = dirty
+[submodule "vim/autoload/vim-plug"]
+	path = vim/autoload/vim-plug
+	url = https://github.com/junegunn/vim-plug.git
+    branch = master
+    ignore = dirty
+[submodule "bash_it"]
+	path = bash_it
+	url = https://github.com/Bash-it/bash-it.git
+	branch = master
+    ignore = dirty
+[submodule "bash-it"]
+	path = bash-it
+	url = https://github.com/Bash-it/bash-it.git

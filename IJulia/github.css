@@ -1,0 +1,41 @@
+/*
+
+    Name:       GitHub
+    Author:     Pablo Zubieta (https:/github.com/pabloferz)
+
+    GitHub like coloring scheme for CodeMirror
+
+*/
+
+.cm-s-github.CodeMirror {
+    background: #ffffff;
+    color: #333333;
+    font-family: "Liberation Mono", monospace;
+    font-size: 9pt;
+}
+
+.cm-s-github div.CodeMirror-selected {background: #eeeeee !important;}
+.cm-s-github .CodeMirror-gutters {background: #ffffff; border-right: 1px solid #b2b2b2;}
+.cm-s-github .CodeMirror-linenumber {color: #b2b2b2;}
+.cm-s-github .CodeMirror-cursor {border-left: 1px solid #333333 !important;}
+
+.cm-s-github span.cm-property, .cm-s-github span.cm-attribute {color: #54be0d;}
+
+.cm-s-github span.cm-atom {color: #9b859d;}
+.cm-s-github span.cm-bracket {color: #333333;}
+.cm-s-github span.cm-builtin {color: #0086b3;}
+.cm-s-github span.cm-comment {color: #969896;}
+.cm-s-github span.cm-def {color: #795da3;}
+.cm-s-github span.cm-error {outline: 1px solid #a71d5d; color: #333333;}
+.cm-s-github span.cm-keyword {color: #a71d5d; font-weight: normal;}
+.cm-s-github span.cm-link {text-decoration: underline; color: #9b859d;}
+.cm-s-github span.cm-meta {color: #0086b3;}
+.cm-s-github span.cm-number {color: #0086b3;}
+.cm-s-github span.cm-operator {color: #a71d5d; font-weight: normal;}
+.cm-s-github span.cm-string {color: #183691;}
+.cm-s-github span.cm-tag {color: #0086b3;}
+.cm-s-github span.cm-variable {color: #333333;}
+.cm-s-github span.cm-variable-2 {color: #333333;}
+
+.cm-s-github .CodeMirror-matchingbracket { outline: 1px solid #b2b2b2; color: #333333 !important;}
+.cm-s-github .CodeMirror-activeline-background { background: #404040; }
