@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 # Include local binaries
-export PATH=$PATH:~/.local/bin
+case ":$PATH:" in
+    *":$HOME/.local/bin:"*) : ;;
+    *) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
 
 # Path to the bash it configuration
 export BASH_IT="$HOME/.bash_it"
