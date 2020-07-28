@@ -4,14 +4,14 @@ set nocompatible " Forget about Vi compatibility
 call plug#begin('~/.vim/bundle/')
 
 Plug 'bling/vim-airline'
-Plug 'JuliaLang/julia-vim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'JuliaEditorSupport/julia-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'lervag/vimtex'
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 
 "" Colorschemes
 Plug 'morhetz/gruvbox'
@@ -23,6 +23,7 @@ runtime macros/matchit.vim
 
 "" Indentation
 set autoindent
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
@@ -34,9 +35,10 @@ set laststatus=2 " Always show vim-airline
 set noshowmode   " Avoid redundance with vim-airline
 set splitbelow
 set splitright
+set textwidth=90
 set ttimeoutlen=50
 set completeopt+=longest
-let &colorcolumn = join(range(92,120),",")
+let &colorcolumn = join(range(93,120),",")
 
 "" Fonts & colors
 syntax on
@@ -67,6 +69,26 @@ end
 "" Plugins specific configurations
 "  vim-airline
 let g:airline_powerline_fonts = 1
+
+"" Julia
+let g:default_julia_version = '1.3'
+
+" language server
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+\   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
+\       using LanguageServer;
+\       using Pkg;
+\       import StaticLint;
+\       import SymbolServer;
+\       env_path = dirname(Pkg.Types.Context().env.project_file);
+\       debug = false;
+\
+\       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "");
+\       server.runlinter = true;
+\       run(server);
+\   ']
+\ }
 
 "" Custom shorcuts (key mappings)
 let mapleader = ','
