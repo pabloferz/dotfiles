@@ -3,19 +3,20 @@ set nocompatible " Forget about Vi compatibility
 "" This configuration uses vim-pulg to manage plugins
 call plug#begin('~/.vim/bundle/')
 
-Plug 'bling/vim-airline'
 Plug 'ajh17/VimCompletesMe'
-Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+Plug 'bling/vim-airline'
+Plug 'JuliaEditorSupport/julia-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'lervag/vimtex'
-Plug 'JuliaEditorSupport/julia-vim'
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
+Plug 'voldikss/vim-floaterm'
 
 "" Colorschemes
-Plug 'morhetz/gruvbox'
 Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
