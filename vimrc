@@ -9,9 +9,9 @@ Plug 'bling/vim-airline'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'lervag/vimtex'
+Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'Raimondi/delimitMate'
 Plug 'voldikss/vim-floaterm'
 
 "" Colorschemes
@@ -34,6 +34,7 @@ autocmd FileType tex setlocal shiftwidth=2 softtabstop=2
 set number
 set laststatus=2 " Always show vim-airline
 set noshowmode   " Avoid redundance with vim-airline
+set signcolumn=yes
 set splitbelow
 set splitright
 set textwidth=90
@@ -70,11 +71,13 @@ end
 "" Plugins specific configurations
 "  vim-airline
 let g:airline_powerline_fonts = 1
+let g:airline_exclude_filetypes = ['floaterm']
 
-"" Julia
-let g:default_julia_version = '1.3'
+"  vim-floaterm
+let g:floaterm_autoclose = 2
+let g:floaterm_open_command = 'tabe'
 
-" language server
+"  Language Server Protocol
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
 \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
@@ -83,12 +86,12 @@ let g:LanguageClient_serverCommands = {
 \       import StaticLint;
 \       import SymbolServer;
 \       env_path = dirname(Pkg.Types.Context().env.project_file);
-\       debug = false;
 \
-\       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "");
+\       server = LanguageServer.LanguageServerInstance(stdin, stdout, env_path, "");
 \       server.runlinter = true;
 \       run(server);
-\   ']
+\   '],
+\   'python': ['~/.julia/conda/3/bin/pyls'],
 \ }
 
 "" Custom shorcuts (key mappings)
@@ -103,3 +106,10 @@ nmap ¿ $
 inoremap kj <Esc>
 "  Change to path od current file
 nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
+" Floaterm
+nnoremap <silent> <Leader>ftr :FloatermNew --width=0.5 --wintype=normal --position=right<CR>
+nnoremap <silent> <Leader>ftb :FloatermNew --height=0.33 --wintype=normal<CR>
+" LSP
+nnoremap <silent> <Leader>lh :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> <Leader>lf :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2>       :call LanguageClient_textDocument_rename()<CR>
