@@ -16,7 +16,7 @@ Plug 'voldikss/vim-floaterm'
 
 "" Colorschemes
 Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 
 call plug#end()
 
@@ -28,7 +28,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-autocmd FileType tex setlocal shiftwidth=2 softtabstop=2
+autocmd FileType tex   setlocal shiftwidth=2 softtabstop=2
 
 "" General appearance
 set number
@@ -80,7 +80,7 @@ let g:floaterm_open_command = 'tabe'
 "  Language Server Protocol
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
-\   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
+\   'julia': ['julia', '--startup-file=no', '--history-file=no', '--project=.', '-e', '
 \       using LanguageServer;
 \       using Pkg;
 \       import StaticLint;
@@ -107,8 +107,8 @@ inoremap kj <Esc>
 "  Change to path od current file
 nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 " Floaterm
-nnoremap <silent> <Leader>ftr :FloatermNew --width=0.5 --wintype=normal --position=right<CR>
-nnoremap <silent> <Leader>ftb :FloatermNew --height=0.33 --wintype=normal<CR>
+nnoremap <silent> <Leader>ftr :FloatermNew --width=0.5 --wintype=vsplit --position=right<CR>
+nnoremap <silent> <Leader>ftb :FloatermNew --height=0.33 --wintype=split<CR>
 " LSP
 nnoremap <silent> <Leader>lh :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> <Leader>lf :call LanguageClient_textDocument_definition()<CR>
