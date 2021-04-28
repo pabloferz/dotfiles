@@ -74,8 +74,8 @@ let g:airline_powerline_fonts = 1
 let g:airline_exclude_filetypes = ['floaterm']
 
 "  vim-floaterm
-let g:floaterm_autoclose = 2
-let g:floaterm_open_command = 'tabe'
+let g:floaterm_autoclose = 1
+let g:floaterm_opener = 'tabe'
 
 "  Language Server Protocol
 let g:LanguageClient_autoStart = 1
@@ -107,8 +107,13 @@ inoremap kj <Esc>
 "  Change to path od current file
 nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 " Floaterm
-nnoremap <silent> <Leader>ftr :FloatermNew --width=0.5 --wintype=vsplit --position=right<CR>
-nnoremap <silent> <Leader>ftb :FloatermNew --height=0.33 --wintype=split<CR>
+nnoremap <silent> <Leader>ftr
+\   :FloatermNew --name=ftr --width=0.5 --wintype=vsplit --position=right<CR>
+nnoremap <silent> <Leader>ftb
+\   :FloatermNew --name=ftb --height=0.33 --wintype=split<CR>
+nnoremap <silent> <Leader>ftn :FloatermNext<CR>
+tnoremap <silent> <Leader>ftn <C-\><C-n>:FloatermNext<CR>
+tnoremap <silent> <Leader>fth <C-\><C-n>:FloatermHide<CR>
 " LSP
 nnoremap <silent> <Leader>lh :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> <Leader>lf :call LanguageClient_textDocument_definition()<CR>
