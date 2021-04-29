@@ -114,6 +114,7 @@ nnoremap <silent> <Leader>ftb
 nnoremap <silent> <Leader>ftn :FloatermNext<CR>
 tnoremap <silent> <Leader>ftn <C-\><C-n>:FloatermNext<CR>
 tnoremap <silent> <Leader>fth <C-\><C-n>:FloatermHide<CR>
+tnoremap kj <C-\><C-n>
 " LSP
 nnoremap <silent> <Leader>lh :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> <Leader>lf :call LanguageClient_textDocument_definition()<CR>
