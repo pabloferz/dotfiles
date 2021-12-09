@@ -7,7 +7,7 @@ syntax match    juliaFunctionCall   display "\(function \)\@<!\<\h\w*\>!\?\.\?("
 syntax match    juliaFunctionDef    display "\(function \)\@<=\<\h\w*\>!\?\.\?("me=e-1 containedin=@juliaFunctionScope
 syntax match    juliaTypeAssert     display "\(::\)\@<=\<\h\w*\(\.\h\w*\)*\>\([,;{)\n]\)\@=" containedin=@juliaTotalScope
 
-if g:colors_name == 'gruvbox'
+if 1  " g:colors_name == 'gruvbox'
     hi def link juliaFunctionCall   GruvboxAqua
     hi def link juliaFunctionDef    GruvboxPurple
     hi def link juliaTypeAssert     GruvboxAqua

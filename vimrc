@@ -79,6 +79,8 @@ let g:floaterm_opener = 'tabe'
 
 "  Language Server Protocol
 let g:LanguageClient_autoStart = 1
+let g:LanguageClient_loadSettings = 1
+let g:LanguageClient_settingsPath = [ '~/.vim/settings.json', '.vim/settings.json' ]
 let g:LanguageClient_serverCommands = {
 \   'julia': ['julia', '--startup-file=no', '--history-file=no', '--project=.', '-e', '
 \       using LanguageServer;
@@ -91,7 +93,7 @@ let g:LanguageClient_serverCommands = {
 \       server.runlinter = true;
 \       run(server);
 \   '],
-\   'python': ['~/.julia/conda/3/bin/pyls'],
+\   'python': ['pylsp'],
 \ }
 
 "" Custom shorcuts (key mappings)
@@ -112,9 +114,10 @@ nnoremap <silent> <Leader>ftr
 nnoremap <silent> <Leader>ftb
 \   :FloatermNew --name=ftb --height=0.33 --wintype=split<CR>
 nnoremap <silent> <Leader>ftn :FloatermNext<CR>
+tnoremap kj <C-\><C-n>
 tnoremap <silent> <Leader>ftn <C-\><C-n>:FloatermNext<CR>
 tnoremap <silent> <Leader>fth <C-\><C-n>:FloatermHide<CR>
-tnoremap kj <C-\><C-n>
+vnoremap <silent> <Leader><CR> :'<,'>FloatermSend<CR><CR>
 " LSP
 nnoremap <silent> <Leader>lh :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> <Leader>lf :call LanguageClient_textDocument_definition()<CR>
