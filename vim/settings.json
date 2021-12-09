@@ -1,0 +1,4 @@
+{
+    "pylsp.plugins.pyflakes.enabled": true,
+    "pylsp.plugins.pycodestyle.enabled": true
+}
