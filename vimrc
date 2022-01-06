@@ -15,8 +15,9 @@ Plug 'tpope/vim-surround'
 Plug 'voldikss/vim-floaterm'
 
 "" Colorschemes
-Plug 'altercation/vim-colors-solarized'
-Plug 'gruvbox-community/gruvbox'
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/gruvbox-material'
+Plug 'sainnhe/sonokai'
 
 call plug#end()
 
@@ -28,9 +29,10 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-autocmd FileType tex   setlocal shiftwidth=2 softtabstop=2
+autocmd FileType tex setlocal shiftwidth=2 softtabstop=2
 
 "" General appearance
+set cursorline
 set number
 set laststatus=2 " Always show vim-airline
 set noshowmode   " Avoid redundance with vim-airline
@@ -47,7 +49,7 @@ syntax on
 if has('gui_running')
     set background=light
     set guioptions-=T
-    colorscheme solarized
+    colorscheme everforest
 else
     if has('termguicolors')
         set termguicolors
@@ -55,8 +57,7 @@ else
         set t_Co=256
     end
     set background=dark
-    let g:gruvbox_italic = 1
-    colorscheme gruvbox
+    colorscheme sonokai
 endif
 
 "" Searches
