@@ -32,7 +32,6 @@ set expandtab
 autocmd FileType tex setlocal shiftwidth=2 softtabstop=2
 
 "" General appearance
-set cursorline
 set number
 set laststatus=2 " Always show vim-airline
 set noshowmode   " Avoid redundance with vim-airline
