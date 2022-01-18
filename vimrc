@@ -6,6 +6,7 @@ call plug#begin('~/.vim/bundle/')
 Plug 'ajh17/VimCompletesMe'
 Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 Plug 'bling/vim-airline'
+Plug 'edkolev/tmuxline.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'lervag/vimtex'

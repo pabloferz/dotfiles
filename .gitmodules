@@ -13,3 +13,6 @@
     url = https://github.com/Bash-it/bash-it.git
     branch = master
     ignore = dirty
+[submodule "tpm"]
+	path = tpm
+	url = https://github.com/tmux-plugins/tpm

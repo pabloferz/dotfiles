@@ -16,6 +16,8 @@
     ~/.vim/autoload/plug.vim: vim/autoload/vim-plug/plug.vim
     ~/.bashrc: bashrc
     ~/.vimrc: vimrc
+    ~/.tmux.conf: tmux.conf
+    ~/.tmux/plugins/tpm: tpm
 
 - shell:
     # Setting up other configurations (bash-it, vim, etc.)
