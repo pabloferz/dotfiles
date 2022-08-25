@@ -29,3 +29,6 @@ alias l='ls -CF'
 
 # Shell History
 alias h='history'
+
+# Safe rm
+alias srm="safe-rm"
