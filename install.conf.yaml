@@ -4,6 +4,7 @@
     - [git submodule update --init --remote, Installing/updating submodules]
     - [mv -n ~/.bashrc ~/.bashrc.old]
     - [rm -f ~/.bashrc]
+    - [mkdir -p ~/.tmux/plugins]
 
 - link:
     ~/.bash_it: bash_it/
