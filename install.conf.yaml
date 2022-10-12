@@ -19,6 +19,7 @@
     ~/.vimrc: vimrc
     ~/.tmux.conf: tmux.conf
     ~/.tmux/plugins/tpm: tpm
+    ~/.tmux/airline.tmux: tmux/airline.tmux
 
 - shell:
     # Setting up other configurations (bash-it, vim, etc.)
