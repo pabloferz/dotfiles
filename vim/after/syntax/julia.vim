@@ -1,4 +1,4 @@
-if g:colors_name == 'sonokai'
+if get(g:, 'colors_name', '') == 'sonokai'
 
     hi! link Boolean     Green
     hi! link Character   Green
@@ -12,7 +12,7 @@ if g:colors_name == 'sonokai'
 
     hi! link juliaFunctionCall  Blue
 
-elseif (g:colors_name == 'gruvbox-material' || g:colors_name == 'everforest')
+elseif (get(g:, 'colors_name', '') == 'gruvbox-material' || get(g:, 'colors_name', '') == 'everforest')
 
     hi! link Boolean     Aqua
     hi! link Character   Aqua
