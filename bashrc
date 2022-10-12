@@ -3,6 +3,9 @@
 # Path to the bash it configuration
 export BASH_IT="$HOME/.bash_it"
 
+# Set locale
+export LANG="en_US.UTF-8"
+
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
 export BASH_IT_THEME="pabloferz"
