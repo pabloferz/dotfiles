@@ -43,6 +43,7 @@ set textwidth=90
 set ttimeoutlen=50
 set completeopt+=longest
 let &colorcolumn = join(range(93,120),",")
+autocmd FileType tex setlocal textwidth=72
 
 "" Fonts & colors
 syntax on
