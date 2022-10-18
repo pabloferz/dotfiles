@@ -3,7 +3,9 @@
 - shell:
     - [git submodule update --init --remote, Installing/updating submodules]
     - [mv -n ~/.bashrc ~/.bashrc.old]
+    - [mv -n ~/.bash_profile ~/.bash_profile.old]
     - [rm -f ~/.bashrc]
+    - [rm -f ~/.bash_profile]
     - [mkdir -p ~/.tmux/plugins]
 
 - link:
@@ -12,12 +14,13 @@
     ~/.vim: vim/
 
 - link:
-    ~/.vim/autoload/plug.vim: vim/autoload/vim-plug/plug.vim
     ~/.bashrc: bashrc
-    ~/.vimrc: vimrc
+    ~/.bash_profile: bashrc_profile
     ~/.tmux.conf: tmux.conf
     ~/.tmux/plugins/tpm: tpm
     ~/.tmux/airline.tmux: tmux/airline.tmux
+    ~/.vimrc: vimrc
+    ~/.vim/autoload/plug.vim: vim/autoload/vim-plug/plug.vim
 
 - shell:
     # Setting up other configurations (bash-it, vim, etc.)
