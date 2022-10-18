@@ -8,7 +8,3 @@ if ! shopt -oq posix; then
         . /etc/bash_completion
     fi
 fi
-
-if [ -f $BASH_IT_CUSTOM/completion/custom.bash ]; then
-    . $BASH_IT_CUSTOM/completion/custom.bash
-fi

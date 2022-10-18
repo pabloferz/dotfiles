@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-# Path to the bash it configuration
-export BASH_IT="$HOME/.bash_it"
-
 # Set locale
 export LANG="en_US.UTF-8"
 
-# Lock and Load a custom theme file
-# location /.bash_it/themes/
+# Path to the bash-it configuration
+export BASH_IT="$HOME/.bash_it"
+
+# Path to the bash-it custom content
+export BASH_IT_CUSTOM="$HOME/.bash_it_custom"
+
+# Lock and Load a theme file
 export BASH_IT_THEME="pabloferz"
 
 # Dafualt terminal editor
