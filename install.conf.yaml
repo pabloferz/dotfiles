@@ -2,30 +2,32 @@
 
 - shell:
     - [git submodule update --init --remote, Installing/updating submodules]
-    - [mv -n ~/.bashrc ~/.bashrc.old]
-    - [mv -n ~/.bash_profile ~/.bash_profile.old]
-    - [rm -f ~/.bashrc]
-    - [rm -f ~/.bash_profile]
-    - [mkdir -p ~/.tmux/plugins]
+    - command: if [ -f ~/.bashrc ]; then mv -n ~/.bashrc ~/.bashrc.old; fi
+    - command: if [ -f ~/.bash_profile ]; then mv -n ~/.bash_profile ~/.bash_profile.old; fi
 
+# Link directories
 - link:
     ~/.bash_it: bash_it/
     ~/.bash_it_custom: bash_it_custom/
     ~/.vim: vim/
 
+# Link files
 - link:
     ~/.bashrc: bashrc
-    ~/.bash_profile: bashrc_profile
+    ~/.bash_profile: bash_profile
     ~/.tmux.conf: tmux.conf
-    ~/.tmux/plugins/tpm: tpm
+    ~/.tmux/plugins/tpm:
+        create: true
+        path: tpm
     ~/.tmux/airline.tmux: tmux/airline.tmux
     ~/.vimrc: vimrc
-    ~/.vim/autoload/plug.vim: vim/autoload/vim-plug/plug.vim
+    ~/.vim/autoload/plug.vim:
+        create: true
+        path: vim/autoload/vim-plug/plug.vim
 
 - shell:
     # Setting up other configurations (bash-it, vim, etc.)
-    -
-      command: ./setup
+    - command: ./setup
       stdin: true
       stdout: true
       stderr: true
