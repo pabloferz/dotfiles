@@ -9,16 +9,21 @@
 - link:
     ~/.bash_it: bash_it/
     ~/.bash_it_custom: bash_it_custom/
+    ~/.bash_it/themes/pabloferz: bash_it_custom/themes/pabloferz/
+    ~/.tmux/plugins/tpm:
+        create: true
+        path: tpm
     ~/.vim: vim/
 
 # Link files
 - link:
     ~/.bashrc: bashrc
     ~/.bash_profile: bash_profile
+    ~/.bash_it/aliases/custom.aliases.bash: bash_it_custom/aliases/custom.aliases.bash
+    ~/.bash_it/completion/custom.completion.bash: bash_it_custom/completion/custom.completion.bash
+    ~/.bash_it/lib/custom.bash: bash_it_custom/lib/custom.bash
+    ~/.bash_it/plugins/custom.plugins.bash: bash_it_custom/plugins/custom.plugins.bash
     ~/.tmux.conf: tmux.conf
-    ~/.tmux/plugins/tpm:
-        create: true
-        path: tpm
     ~/.tmux/airline.tmux: tmux/airline.tmux
     ~/.vimrc: vimrc
     ~/.vim/autoload/plug.vim:
