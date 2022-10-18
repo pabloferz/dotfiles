@@ -19,10 +19,18 @@
 - link:
     ~/.bashrc: bashrc
     ~/.bash_profile: bash_profile
-    ~/.bash_it/aliases/custom.aliases.bash: bash_it_custom/aliases/custom.aliases.bash
-    ~/.bash_it/completion/custom.completion.bash: bash_it_custom/completion/custom.completion.bash
-    ~/.bash_it/lib/custom.bash: bash_it_custom/lib/custom.bash
-    ~/.bash_it/plugins/custom.plugins.bash: bash_it_custom/plugins/custom.plugins.bash
+    ~/.bash_it/custom/aliases/custom.aliases.bash:
+        create: true
+        path: bash_it_custom/aliases/custom.aliases.bash
+    ~/.bash_it/custom/completion/custom.completion.bash:
+        create: true
+        path: bash_it_custom/completion/custom.completion.bash
+    ~/.bash_it/custom/lib/custom.bash:
+        create: true
+        path: bash_it_custom/lib/custom.bash
+    ~/.bash_it/custom/plugins/custom.plugins.bash:
+        create: true
+        path: bash_it_custom/plugins/custom.plugins.bash
     ~/.tmux.conf: tmux.conf
     ~/.tmux/airline.tmux: tmux/airline.tmux
     ~/.vimrc: vimrc
