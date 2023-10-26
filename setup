@@ -6,8 +6,8 @@ do
     # Prompt user, and read command line argument
     read -p "Do you want to install some essential packages [y/n]? " answer
     case $answer in
-        [yY]* ) sudo apt -y install build-essential cmake gfortran m4\
-                pkg-config vim-gtk gimp inkscape unrar
+        [yY]* ) sudo apt -y install build-essential cmake gfortran m4 pkg-config \
+                fzf ripgrep tmux unrar vim-gtk gimp inkscape
                 break;;
         [nN]* ) break;;
     esac
