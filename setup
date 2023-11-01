@@ -7,7 +7,8 @@ do
     read -p "Do you want to install some essential packages [y/n]? " answer
     case $answer in
         [yY]* ) sudo apt -y install build-essential cmake gfortran m4 pkg-config \
-                environment-modules fzf ripgrep tmux unrar vim-gtk gimp inkscape
+                environment-modules fzf ripgrep texlive-fonts-extra tmux unrar \
+                vim-gtk gimp inkscape
                 break;;
         [nN]* ) break;;
     esac
