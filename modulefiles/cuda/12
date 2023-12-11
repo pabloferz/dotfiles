@@ -1,0 +1,13 @@
+#%Module
+
+proc ModulesHelp { } {
+   puts stderr "Add cuda to your path"
+}
+
+module-whatis "Add cuda to your path\n"
+
+set basedir "/usr/local/cuda-12"
+setenv CUDA_HOME "$basedir"
+setenv CUDA_ROOT "$basedir"
+prepend-path PATH "${basedir}/bin"
+prepend-path LD_LIBRARY_PATH "${basedir}/lib64"

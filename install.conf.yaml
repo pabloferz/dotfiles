@@ -10,6 +10,7 @@
     ~/.bash_it: bash_it/
     ~/.bash_it_custom: bash_it_custom/
     ~/.bash_it/themes/pabloferz: bash_it_custom/themes/pabloferz/
+    ~/.modulefiles: modulefiles/
     ~/.tmux/plugins/tpm:
         create: true
         path: tpm
