@@ -1,3 +1,3 @@
-if command -v pixi 2>/dev/null; then
+if command -v pixi 2>&1 >/dev/null; then
     eval "$(pixi completion --shell bash)"
 fi
