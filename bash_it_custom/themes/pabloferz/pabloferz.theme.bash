@@ -9,7 +9,7 @@ case $TERM in
 esac
 
 function prompt_command() {
-    if [[ $(pstree -Ts $$) = *sshd* ]]; then
+    if [[ $(pstree -Ts $$ 2>/dev/null || pstree -s $$) = *sshd* ]]; then
         host="@\h"
     else
         host=""
