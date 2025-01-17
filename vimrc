@@ -3,7 +3,6 @@ set nocompatible " Forget about Vi compatibility
 "" This configuration uses vim-pulg to manage plugins
 call plug#begin('~/.vim/bundle/')
 
-Plug 'ajh17/VimCompletesMe'
 Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
 Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
@@ -14,6 +13,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'voldikss/vim-floaterm'
+Plug 'https://git.sr.ht/~ackyshake/VimCompletesMe.vim'
 
 "" Colorschemes
 Plug 'sainnhe/everforest'
