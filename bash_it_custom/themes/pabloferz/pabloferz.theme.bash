@@ -1,20 +1,19 @@
-#added TITLEBAR for updating the tab and window titles with the pwd
-case $TERM in
-    xterm*)
+# Added TITLEBAR for updating the tab and window titles with the pwd
+if [[ $TERM = xterm* ]]; then
     TITLEBAR='\[\033]0;\w\007\]'
-    ;;
-    *)
+else
     TITLEBAR=""
-    ;;
-esac
+fi
+
+if [[ $(pstree -Ts $$ 2>/dev/null || pstree -s $$) = *sshd* ]]; then
+    HOSTINFO="@\h"
+else
+    HOSTINFO=""
+fi
+
 
 function prompt_command() {
-    if [[ $(pstree -Ts $$ 2>/dev/null || pstree -s $$) = *sshd* ]]; then
-        host="@\h"
-    else
-        host=""
-    fi
-    PS1="${TITLEBAR}\u${host}: \[\033[01;34m\]\w\[\033[00m\] \$ "
+    PS1="${TITLEBAR}\u${HOSTINFO}: \[\033[01;34m\]\w\[\033[00m\] \$ "
 }
 
 PROMPT_COMMAND=prompt_command;
