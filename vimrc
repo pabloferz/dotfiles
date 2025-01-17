@@ -16,9 +16,8 @@ Plug 'voldikss/vim-floaterm'
 Plug 'https://git.sr.ht/~ackyshake/VimCompletesMe.vim'
 
 "" Colorschemes
-Plug 'sainnhe/everforest'
-Plug 'sainnhe/gruvbox-material'
 Plug 'sainnhe/sonokai'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
 call plug#end()
 
@@ -49,8 +48,9 @@ autocmd FileType tex setlocal textwidth=72
 syntax on
 if has('gui_running')
     set background=light
+    set linespace=2
     set guioptions-=T
-    colorscheme everforest
+    colorscheme onehalflight
 else
     if has('termguicolors')
         set termguicolors
