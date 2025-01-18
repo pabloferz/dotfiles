@@ -2,8 +2,8 @@
 
 - shell:
     - [git submodule update --init --remote, Installing/updating submodules]
-    - command: if [ -f ~/.bashrc ]; then mv -n ~/.bashrc ~/.bashrc.old; fi
-    - command: if [ -f ~/.bash_profile ]; then mv -n ~/.bash_profile ~/.bash_profile.old; fi
+    - command: if [ -f ~/.bashrc ]; then cp -n ~/.bashrc ~/.bashrc.old; rm ~/.bashrc; fi
+    - command: if [ -f ~/.bash_profile ]; then cp -n ~/.bash_profile ~/.bash_profile.old; rm ~/.bash_profile; fi
 
 # Link directories
 - link:
