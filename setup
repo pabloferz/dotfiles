@@ -9,7 +9,8 @@ if command -v apt 2>&1 >/dev/null; then
             case $answer in
                 [yY]* ) sudo apt -y install build-essential cmake gfortran m4 pkg-config \
                         environment-modules fzf openssh-server ripgrep tmux unrar \
-                        texlive-fonts-extra vim-gtk gimp inkscape && touch .packages_installed
+                        texlive-fonts-extra vim-gui-common gimp inkscape && \
+                        touch .packages_installed
                         break;;
                 [nN]* ) break;;
             esac
