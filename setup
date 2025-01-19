@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
 
 # Install some programs
-while true
-do
-    # Prompt user, and read command line argument
-    read -p "Do you want to install some essential packages [y/n]? " answer
-    case $answer in
-        [yY]* ) sudo apt -y install build-essential cmake gfortran m4 pkg-config \
-                environment-modules fzf openssh-server ripgrep tmux unrar \
-                texlive-fonts-extra vim-gtk gimp inkscape
-                break;;
-        [nN]* ) break;;
-    esac
-done
+if command -v apt 2>&1 >/dev/null; then
+    if [ ! -f .packages_installed ]; then
+        while true; do
+            # Prompt user, and read command line argument
+            read -p "Do you want to install some essential packages [y/n]? " answer
+            case $answer in
+                [yY]* ) sudo apt -y install build-essential cmake gfortran m4 pkg-config \
+                        environment-modules fzf openssh-server ripgrep tmux unrar \
+                        texlive-fonts-extra vim-gtk gimp inkscape && touch .packages_installed
+                        break;;
+                [nN]* ) break;;
+            esac
+        done
+    fi
+fi
 
 # Load Bash It
 source $BASH_IT/bash_it.sh
