@@ -32,6 +32,9 @@
     ~/.bash_it/custom/plugins/custom.plugins.bash:
         create: true
         path: bash_it_custom/plugins/custom.plugins.bash
+    ~/.config/ptpython/config.py:
+        create: true
+        path: config/ptpython/config.py
     ~/.tmux.conf: tmux.conf
     ~/.tmux/airline.tmux: tmux/airline.tmux
     ~/.vimrc: vimrc
