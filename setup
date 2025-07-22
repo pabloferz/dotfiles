@@ -30,4 +30,4 @@ bash-it enable plugin history
 bash-it enable plugin history-search
 
 # Installing/updating vim plugins
-vim -Nu vimrc.plugins +PlugInstall +qall
+vim -Nu vimrc +PlugInstall +qall
