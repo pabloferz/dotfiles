@@ -4,7 +4,6 @@ set nocompatible " Forget about Vi compatibility
 call plug#begin('~/.vim/bundle/')
 
 Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-Plug 'bling/vim-airline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'junegunn/vim-easy-align'
@@ -12,12 +11,14 @@ Plug 'lervag/vimtex'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
 Plug 'voldikss/vim-floaterm'
 Plug 'https://git.sr.ht/~ackyshake/VimCompletesMe.vim'
 
 "" Colorschemes
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/sonokai'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -50,15 +51,19 @@ if has('gui_running')
     set background=light
     set linespace=2
     set guioptions-=T
-    colorscheme onehalflight
+    colorscheme PaperColor
 else
     if has('termguicolors')
         set termguicolors
     else
         set t_Co=256
-    end
+    endif
     set background=dark
-    colorscheme sonokai
+    if $TERM == 'linux'
+        colorscheme unokai
+    else
+        colorscheme sonokai
+    endif
 endif
 
 "" Searches
@@ -74,6 +79,9 @@ end
 "  vim-airline
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_filetypes = ['floaterm']
+if has('gui_running')
+    let g:airline_theme = 'papercolor'
+endif
 
 "  vim-floaterm
 let g:floaterm_autoclose = 1
