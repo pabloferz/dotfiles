@@ -83,6 +83,30 @@ if has('gui_running')
     let g:airline_theme = 'papercolor'
 endif
 
+" Add leftmost powerline symbol
+function! LeftmostPowerlineSymbol()
+  " Return the powerline left separator symbol
+  return get(g:airline_symbols, 'left_sep', '')
+endfunction
+
+" Setup leftmost powerline symbol after airline initializes
+function! SetupLeftmostPowerline()
+  " Create a custom function part for the leftmost symbol
+  call airline#parts#define_function('leftmost_symbol', 'LeftmostPowerlineSymbol')
+  
+  " Modify section A to include the leftmost symbol at the beginning
+  " This preserves all existing functionality while adding our symbol
+  let g:airline_section_a = airline#section#create_left(['leftmost_symbol', 'mode', 'crypt', 'paste', 'spell', 'iminsert'])
+  
+  " Refresh airline to apply the changes
+  if exists(':AirlineRefresh')
+    AirlineRefresh
+  endif
+endfunction
+
+" Hook into airline initialization
+autocmd User AirlineAfterInit call SetupLeftmostPowerline()
+
 "  vim-floaterm
 let g:floaterm_autoclose = 1
 let g:floaterm_opener = 'tabe'
