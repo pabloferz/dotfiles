@@ -83,29 +83,66 @@ if has('gui_running')
     let g:airline_theme = 'papercolor'
 endif
 
-" Add leftmost powerline symbol
-function! LeftmostPowerlineSymbol()
-  " Return the powerline left separator symbol
+" Leftmost powerline symbol - Alternative approach using autocmd
+" This modifies the statusline after airline sets it, preserving all section content
+
+function! s:get_powerline_symbol()
+  " Get the powerline left separator symbol
   return get(g:airline_symbols, 'left_sep', '')
 endfunction
 
-" Setup leftmost powerline symbol after airline initializes
-function! SetupLeftmostPowerline()
-  " Create a custom function part for the leftmost symbol
-  call airline#parts#define_function('leftmost_symbol', 'LeftmostPowerlineSymbol')
-  
-  " Modify section A to include the leftmost symbol at the beginning
-  " This preserves all existing functionality while adding our symbol
-  let g:airline_section_a = airline#section#create_left(['leftmost_symbol', 'mode', 'crypt', 'paste', 'spell', 'iminsert'])
-  
-  " Refresh airline to apply the changes
-  if exists(':AirlineRefresh')
-    AirlineRefresh
+function! s:get_mode_colors()
+  " Get the current mode and determine highlight group name
+  let mode = mode()
+  if mode ==# 'i'
+    return 'airline_a_insert'
+  elseif mode =~# '\v[vV\<C-v>]'
+    return 'airline_a_visual'
+  elseif mode ==# 'R'
+    return 'airline_a_replace'
+  elseif mode ==# 'c'
+    return 'airline_a_commandline'
+  elseif mode ==# 't'
+    return 'airline_a_terminal'
+  else
+    return 'airline_a'
   endif
 endfunction
 
-" Hook into airline initialization
-autocmd User AirlineAfterInit call SetupLeftmostPowerline()
+function! AddLeftmostPowerlineSymbol()
+  " Only apply to active window and if airline is loaded
+  if !exists('g:loaded_airline') || &buftype ==# 'nofile'
+    return
+  endif
+  
+  " Get current statusline
+  let current_statusline = &statusline
+  
+  " Only modify if it's an airline statusline (contains airline function call)
+  if current_statusline =~# 'airline#statusline'
+    let symbol = s:get_powerline_symbol()
+    if !empty(symbol)
+      let mode_group = s:get_mode_colors()
+      let leftmost_part = '%#' . mode_group . '#' . symbol
+      
+      " Prepend the symbol to the existing statusline
+      let &statusline = leftmost_part . current_statusline
+    endif
+  endif
+endfunction
+
+" Hook into mode changes and window events to update the leftmost symbol
+augroup LeftmostPowerline
+  autocmd!
+  " Update on mode changes
+  autocmd ModeChanged * call AddLeftmostPowerlineSymbol()
+  " Update when entering windows
+  autocmd WinEnter * call AddLeftmostPowerlineSymbol()
+  " Update on buffer changes
+  autocmd BufEnter * call AddLeftmostPowerlineSymbol()
+  " Update after airline refreshes
+  autocmd User AirlineAfterInit call AddLeftmostPowerlineSymbol()
+augroup END
 
 "  vim-floaterm
 let g:floaterm_autoclose = 1

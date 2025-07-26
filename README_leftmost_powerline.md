@@ -25,18 +25,20 @@ Where `` is the powerline left separator symbol that appears at the very left ed
 
 ## How It Works
 
-The implementation uses vim-airline's `AirlineAfterInit` autocmd event to:
+The implementation works by modifying the final statusline string after vim-airline has generated it, which means:
 
-1. Define a custom function part called `leftmost_symbol` that returns the powerline left separator
-2. Modify `g:airline_section_a` to prepend this symbol to the existing mode section
-3. Preserve all existing functionality (mode display, crypt, paste, spell, iminsert indicators)
+1. **No Section Content Changes**: `airline_section_a` and all other sections remain completely untouched
+2. **Visual Background Extension**: The powerline symbol is prepended to the final statusline with the appropriate mode colors
+3. **Event-Driven Updates**: Uses autocmd events (`ModeChanged`, `WinEnter`, etc.) to update when the mode or window changes
+4. **Preserves All Functionality**: All existing vim-airline features, themes, and extensions continue to work normally
 
 ## Technical Details
 
-- Uses `airline#parts#define_function()` to create a reusable component
-- Leverages `airline#section#create_left()` to properly construct the section
+- Modifies the final `&statusline` string after vim-airline has set it
+- Uses vim's `ModeChanged`, `WinEnter`, and `BufEnter` autocmd events for real-time updates
 - Respects the `g:airline_symbols` dictionary for powerline symbol configuration
-- Automatically inherits the mode section's color scheme through vim-airline's theming system
+- Dynamically determines the correct highlight group based on the current vim mode
+- Only applies to windows with airline statuslines (detected by checking for `airline#statusline` in the statusline)
 
 ## Requirements
 
