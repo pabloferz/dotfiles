@@ -83,65 +83,81 @@ if has('gui_running')
     let g:airline_theme = 'papercolor'
 endif
 
-" Leftmost powerline symbol - Alternative approach using autocmd
-" This modifies the statusline after airline sets it, preserving all section content
-
-function! s:get_powerline_symbol()
-  " Get the powerline left separator symbol
-  return get(g:airline_symbols, 'left_sep', '')
+" Leftmost powerline symbol with inverted colors
+function! CreateInvertedModeHighlights()
+  " Create inverted highlight groups for each mode
+  " These will have the foreground and background colors swapped
+  
+  " Get the current airline theme colors
+  let palette = g:airline#themes#{g:airline_theme}#palette
+  
+  " Define inverted highlight groups for each mode
+  for mode in ['normal', 'insert', 'visual', 'replace', 'commandline', 'terminal']
+    if has_key(palette, mode)
+      let mode_colors = palette[mode]['airline_a']
+      " Swap fg and bg colors: [fg, bg, ctermfg, ctermbg, opts]
+      let inverted_colors = [mode_colors[1], mode_colors[0], mode_colors[3], mode_colors[2], get(mode_colors, 4, '')]
+      
+      " Create the inverted highlight group
+      let group_name = 'airline_a_' . mode . '_inverted'
+      if mode ==# 'normal'
+        let group_name = 'airline_a_inverted'
+      endif
+      
+      call airline#highlighter#exec(group_name, inverted_colors)
+    endif
+  endfor
 endfunction
 
-function! s:get_mode_colors()
-  " Get the current mode and determine highlight group name
+function! GetCurrentModeInvertedGroup()
+  " Return the appropriate inverted highlight group based on current mode
   let mode = mode()
   if mode ==# 'i'
-    return 'airline_a_insert'
+    return 'airline_a_insert_inverted'
   elseif mode =~# '\v[vV\<C-v>]'
-    return 'airline_a_visual'
+    return 'airline_a_visual_inverted'
   elseif mode ==# 'R'
-    return 'airline_a_replace'
+    return 'airline_a_replace_inverted'
   elseif mode ==# 'c'
-    return 'airline_a_commandline'
+    return 'airline_a_commandline_inverted'
   elseif mode ==# 't'
-    return 'airline_a_terminal'
+    return 'airline_a_terminal_inverted'
   else
-    return 'airline_a'
+    return 'airline_a_inverted'
   endif
 endfunction
 
-function! AddLeftmostPowerlineSymbol()
-  " Only apply to active window and if airline is loaded
-  if !exists('g:loaded_airline') || &buftype ==# 'nofile'
-    return
+function! AirlineMod(...)
+  let builder = a:1
+  let context = a:2
+  
+  " Only add to active statusline
+  if get(context, 'active', 0)
+    " Get the inverted highlight group for current mode
+    let inverted_group = GetCurrentModeInvertedGroup()
+    
+    " Add the powerline symbol with inverted colors
+    let symbol = get(g:airline_symbols, 'left_sep', '')
+    call builder.add_raw('%#' . inverted_group . '#' . symbol)
   endif
   
-  " Get current statusline
-  let current_statusline = &statusline
-  
-  " Only modify if it's an airline statusline (contains airline function call)
-  if current_statusline =~# 'airline#statusline'
-    let symbol = s:get_powerline_symbol()
-    if !empty(symbol)
-      let mode_group = s:get_mode_colors()
-      let leftmost_part = '%#' . mode_group . '#' . symbol
-      
-      " Prepend the symbol to the existing statusline
-      let &statusline = leftmost_part . current_statusline
-    endif
-  endif
+  return 0
 endfunction
 
-" Hook into mode changes and window events to update the leftmost symbol
-augroup LeftmostPowerline
+" Setup the inverted highlights after airline initializes
+function! SetupInvertedHighlights()
+  call CreateInvertedModeHighlights()
+  
+  " Add our statusline modification functions
+  call airline#add_statusline_func('AirlineMod')
+  call airline#add_inactive_statusline_func('AirlineMod')
+endfunction
+
+" Hook into airline theme changes to recreate inverted highlights
+augroup LeftmostPowerlineInverted
   autocmd!
-  " Update on mode changes
-  autocmd ModeChanged * call AddLeftmostPowerlineSymbol()
-  " Update when entering windows
-  autocmd WinEnter * call AddLeftmostPowerlineSymbol()
-  " Update on buffer changes
-  autocmd BufEnter * call AddLeftmostPowerlineSymbol()
-  " Update after airline refreshes
-  autocmd User AirlineAfterInit call AddLeftmostPowerlineSymbol()
+  autocmd User AirlineAfterInit call SetupInvertedHighlights()
+  autocmd User AirlineAfterTheme call CreateInvertedModeHighlights()
 augroup END
 
 "  vim-floaterm
