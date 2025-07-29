@@ -132,3 +132,65 @@ vnoremap <silent> <Leader><CR> :'<,'>FloatermSend<CR><CR>
 nnoremap <silent> <Leader>lh :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> <Leader>lf :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2>       :call LanguageClient_textDocument_rename()<CR>
+
+"" vim-airline rounded edges configuration
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+
+function! AirlineThemePatch(palette)
+  for m in keys(a:palette)
+    let mode = a:palette[m]
+    for g in keys(mode)
+      if match(g, escape('_edge', '\') . '$') == -1
+        let mode[g . '_edge'] = [mode[g][1], '', mode[g][3], '']
+      endif
+    endfor
+  endfor
+endfunction
+
+function! AirlineRoundedEdges(activity, builder, context)
+  let funcrefs = get(g:, 'airline_' . a:activity . '_funcrefs', [])[1:] + [ function('airline#extensions#apply'), function('airline#extensions#default#apply') ]
+
+  call airline#util#exec_funcrefs(funcrefs, a:builder, a:context)
+
+  if a:builder.get_position == 0
+    call a:builder.add_raw('%#airline_c_edge#%#airline_c#%=%#airline_c_edge#')
+  else
+    let sections = a:builder._sections
+    
+    " Handle empty sections gracefully
+    if empty(sections)
+      return 1
+    endif
+    
+    " Get the leftmost and rightmost non-empty sections
+    let left_idx = 0
+    let right_idx = len(sections) - 1
+    
+    " Find first non-empty section from left
+    while left_idx < len(sections) && empty(sections[left_idx][1])
+      let left_idx += 1
+    endwhile
+    
+    " Find first non-empty section from right
+    while right_idx >= 0 && empty(sections[right_idx][1])
+      let right_idx -= 1
+    endwhile
+    
+    " If we have valid sections, add edges
+    if left_idx < len(sections) && right_idx >= 0
+      let left_group = substitute(sections[left_idx][0], '\d\+', '', '')
+      let right_group = substitute(sections[right_idx][0], '\d\+', '', '')
+      
+      " Insert left edge at the beginning
+      call insert(a:builder._sections, ['', '%#' . left_group . '_edge#'], 0)
+      
+      " Append right edge at the end
+      call add(a:builder._sections, ['', '%#' . right_group . '_edge#'])
+    endif
+  endif
+
+  return 1
+endfunction
+
+call airline#add_statusline_funcref(function('AirlineRoundedEdges', ['statusline']))
+call airline#add_inactive_statusline_funcref(function('AirlineRoundedEdges', ['inactive']))
