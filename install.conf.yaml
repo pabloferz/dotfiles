@@ -37,6 +37,7 @@
         path: config/ptpython/config.py
     ~/.tmux.conf: tmux.conf
     ~/.tmux/airline.tmux: tmux/airline.tmux
+    ~/.tmux/airline-rounded-edges.tmux: tmux/airline-rounded-edges.tmux
     ~/.vimrc: vimrc
     ~/.vim/autoload/plug.vim:
         create: true

@@ -3,8 +3,8 @@ set nocompatible " Forget about Vi compatibility
 "" This configuration uses vim-pulg to manage plugins
 call plug#begin('~/.vim/bundle/')
 
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-Plug 'edkolev/tmuxline.vim'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'edkolev/tmuxline.vim', { 'on': [] }
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'lervag/vimtex'
@@ -42,7 +42,7 @@ set splitright
 set textwidth=90
 set ttimeoutlen=50
 set completeopt+=longest
-let &colorcolumn = join(range(93,120),",")
+let &colorcolumn = '93'
 autocmd FileType tex setlocal textwidth=72
 
 "" Fonts & colors
@@ -51,10 +51,13 @@ if has('gui_running')
     set background=light
     set linespace=2
     set guioptions-=T
+    set guioptions-=r
     colorscheme PaperColor
 else
     if has('termguicolors')
         set termguicolors
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     else
         set t_Co=256
     endif
@@ -77,11 +80,57 @@ end
 
 "" Plugins specific configurations
 "  vim-airline
-let g:airline_powerline_fonts = 1
 let g:airline_exclude_filetypes = ['floaterm']
-if has('gui_running')
-    let g:airline_theme = 'papercolor'
-endif
+let g:airline_extended_edges = ($TERM != 'linux')
+let g:airline_powerline_fonts = 1
+let g:airline_symbol_left_edge = ''
+let g:airline_symbol_right_edge = ''
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+
+function! AirlineThemePatch(palette)
+    for m in keys(a:palette)
+        let mode = a:palette[m]
+        for g in keys(mode)
+            if match(g, escape('_edge', '\') . '$') == -1
+                let mode[g . '_edge'] = [mode[g][1], '', mode[g][3], '']
+            endif
+        endfor
+    endfor
+endfunction
+
+function! AirlineExtendedEdges(activity, builder, context)
+    let funcrefs = get(g:, 'airline_' . a:activity . '_funcrefs', [])[1:] +
+        \ [
+        \      function('airline#extensions#apply'),
+        \      function('airline#extensions#default#apply')
+        \ ]
+
+    call airline#util#exec_funcrefs(funcrefs, a:builder, a:context)
+
+    if !get(g:, 'airline_extended_edges', 0)
+        return 1
+    endif
+
+    let ls = get(g:, 'airline_symbol_left_edge', '')
+    let rs = get(g:, 'airline_symbol_right_edge', '')
+
+    if a:builder.get_position() == 0
+        let line = '%#airline_c_edge#' . ls . '%#airline_c#%=%#airline_c_edge#' . rs
+        call a:builder.add_raw(line)
+    else
+        let left_group = substitute(a:builder._sections[0][0], '\d\+', '', '')
+        let right_group = substitute(a:builder._sections[-1][0], '\d\+', '', '')
+        let sections = [['', '%#' . left_group . '_edge#' . ls]]
+        let sections += a:builder._sections
+        let sections += [['', '%#' . right_group . '_edge#' . rs]]
+        let a:builder._sections = sections
+    endif
+
+    return 1
+endfunction
+
+call airline#add_statusline_funcref(function('AirlineExtendedEdges', ['statusline']))
+call airline#add_inactive_statusline_funcref(function('AirlineExtendedEdges', ['inactive']))
 
 "  vim-floaterm
 let g:floaterm_autoclose = 1
