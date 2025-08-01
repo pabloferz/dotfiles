@@ -47,6 +47,7 @@ autocmd FileType tex setlocal textwidth=72
 
 "" Fonts & colors
 syntax on
+
 if has('gui_running')
     set background=light
     set linespace=2
@@ -54,18 +55,22 @@ if has('gui_running')
     set guioptions-=r
     colorscheme PaperColor
 else
-    if has('termguicolors')
+    set background=dark
+    if has('termguicolors') && ("alacritty\|.*256.*\|.*true.*" =~ &term)
         set termguicolors
         let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
         let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    else
-        set t_Co=256
-    endif
-    set background=dark
-    if $TERM == 'linux'
-        colorscheme unokai
-    else
         colorscheme sonokai
+    else
+        set t_Co=16
+        let &t_AF = "\<Esc>[38;5;%dm"
+        let &t_AB = "\<Esc>[48;5;%dm"
+        let g:airline_theme = 'sonokai'
+        call airline#parts#define_accent('mode', 'none')
+        call airline#parts#define_accent('linenr', 'none')
+        call airline#parts#define_accent('maxlinenr', 'none')
+        call airline#parts#define_accent('colnr', 'none')
+        colorscheme unokai
     endif
 endif
 
@@ -80,9 +85,9 @@ end
 
 "" Plugins specific configurations
 "  vim-airline
-let g:airline_exclude_filetypes = ['floaterm']
-let g:airline_extended_edges = ($TERM != 'linux')
 let g:airline_powerline_fonts = 1
+let g:airline_exclude_filetypes = ['floaterm']
+let g:airline_extended_edges = g:airline_powerline_fonts && &termguicolors
 let g:airline_symbol_left_edge = ''
 let g:airline_symbol_right_edge = ''
 let g:airline_theme_patch_func = 'AirlineThemePatch'
