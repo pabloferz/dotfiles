@@ -56,7 +56,7 @@ if has('gui_running')
     colorscheme PaperColor
 else
     set background=dark
-    if has('termguicolors') && ("alacritty\|.*256.*\|.*true.*" =~ &term)
+    if has('termguicolors') && (&termguicolors || (&term =~ 'alacritty\|.*256.*'))
         set termguicolors
         let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
         let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"

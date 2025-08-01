@@ -1,5 +1,5 @@
 # For TTYs
-if tty | grep tty; then
+if tty | grep -Eq 'tty'; then
     export TERM=linux-16color
     printf %b '\e[40m' '\e[8]'  # set default background to color 0 'sonokai-bg0'
     printf %b '\e[37m' '\e[8]'  # set default foreground to color 7 'sonokai-fg'
