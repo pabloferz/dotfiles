@@ -18,6 +18,7 @@ Plug 'https://git.sr.ht/~ackyshake/VimCompletesMe.vim'
 "" Colorschemes
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sainnhe/sonokai'
+Plug 'vim/colorschemes'
 Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
